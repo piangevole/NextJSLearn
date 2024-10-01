@@ -1,0 +1,63 @@
+<html>
+  <body>
+    <div id="app"></div>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Imperative ways, telling the browser HOW to achieve what we want -->
+    <!-- <script type="text/javascript">
+        // Select the div element with 'app' id
+        const app = document.getElementById('app');
+
+        // Create a new H1 element
+        const header = document.createElement('h1');
+
+        // Create a new text node for the H1 element
+        const text = 'Develop. Preview. Ship.';
+        const headerContent = document.createTextNode(text);
+
+        // Append the text to the H1 element
+        header.appendChild(headerContent);
+
+        // Place the H1 element inside the div
+        app.appendChild(header);
+    </script> -->
+
+    <!-- Declarative ways, telling the browser WHAT we want to achieve and let it figure out the way -->
+     <!-- Note that the following code will be written in JSX, which is not understood by browser. Hence we need a transpiler, such as Babel, to transform JSX to Javascript  -->
+     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+     <script type="text/jsx">
+        const domNode = document.getElementById('app')
+
+        function Header({ title }) {
+            return (<h1>{title ? title : 'Default title'}</h1>)
+        }
+        
+        function HomePage() {
+            const names = ['Ada Lovelace', 'Grace Hopper', 'Margaret Hamilton']
+
+            const [likes, setLikes] = React.useState(0);
+
+            function handleClick() {
+                setLikes(likes + 1)
+            }
+
+            return (
+                <div>
+                    {/* Nesting the Header component */}
+                    <Header title="Develop. Preview. Ship."/>
+                    <ul>
+                        {names.map((name) => (
+                            <li key={name}>{name}</li>
+                        ))}
+                    </ul>
+                    <button onClick={handleClick}>Like ({likes})</button>
+                </div>
+            )
+        }
+
+        const root = ReactDOM.createRoot(domNode);
+        root.render(<HomePage />)
+     </script>
+  </body>
+</html>
