@@ -14,12 +14,23 @@ export async function fetchRevenue() {
     // Artificially delay a response for demo purposes.
     // Don't do this in production :)
 
-    // console.log('Fetching revenue data...');
-    // await new Promise((resolve) => setTimeout(resolve, 3000));
+    // When you reload the page, it takes >3s as the whole page
+    // is blocked while the data is being fetched.
+    
+    // This is a common challenge developers have to solve:
+    // With dynamic rendering, your application is only as fast
+    // as your slowest data fetch.
+
+    // You can solve this by streaming, which can be done in 2 ways:
+    // 1. Use loading.tsx on the page level
+    // 2. Use <Suspense> for specific components
+
+    console.log('Fetching revenue data...');
+    await new Promise((resolve) => setTimeout(resolve, 3000));
 
     const data = await sql<Revenue>`SELECT * FROM revenue`;
 
-    // console.log('Data fetch completed after 3 seconds.');
+    console.log('Data fetch completed after 3 seconds.');
 
     return data.rows;
   } catch (error) {
@@ -60,6 +71,7 @@ export async function fetchCardData() {
          SUM(CASE WHEN status = 'pending' THEN amount ELSE 0 END) AS "pending"
          FROM invoices`;
 
+    // Parallel requests (c.f. waterfall pattern) - However disadvantage lies when one data request is slower than all others.
     const data = await Promise.all([
       invoiceCountPromise,
       customerCountPromise,
