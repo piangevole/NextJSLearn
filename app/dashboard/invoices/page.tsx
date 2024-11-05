@@ -5,8 +5,22 @@ import { CreateInvoice } from '@/app/ui/invoices/buttons';
 import { lusitana } from '@/app/ui/fonts';
 import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
 import { Suspense } from 'react';
- 
+import { Metadata } from 'next';
+
 import { fetchInvoicesPages } from '@/app/lib/data';
+
+// This works, but we are repeating the title of the application in every page.
+// If something changes, like the company name, you'd have to update it on every page.
+// Instead, you can use the title.template field in the metadata object to define a template for your page titles.
+// This template can include the page title, and any other information you want to include.
+
+// export const metadata: Metadata = {
+//   title: 'Invoices | Acme Dashboard',
+// };
+
+export const metadata: Metadata = {
+  title: 'Invoices',
+};
 
 export default async function Page({
   searchParams,

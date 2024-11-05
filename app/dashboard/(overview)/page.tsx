@@ -8,6 +8,12 @@ import { Suspense } from 'react';
 import { RevenueChartSkeleton, LatestInvoicesSkeleton, CardsSkeleton } from '@/app/ui/skeletons';
 import { fetchCardData } from '@/app/lib/data';
 
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Dashboard',
+};
+
 // Note here Page is an async component
 export default async function Page() {
 
